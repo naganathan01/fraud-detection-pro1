@@ -1,0 +1,27 @@
+# Training container for ML pipeline
+FROM python:3.11-slim
+
+WORKDIR /app
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    gcc \
+    g++ \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy requirements
+COPY requirements-training.txt .
+RUN pip install --no-cache-dir -r requirements-training.txt
+
+# Copy training code
+COPY training/ ./training/
+COPY src/utils/ ./src/utils/
+
+# Set environment variables
+ENV PYTHONPATH=/app
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+
+# Default command
+CMD ["python", "training/pipeline/model_training.py"]

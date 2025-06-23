@@ -1,0 +1,71 @@
+fraud-detection-production/
+├── src/
+│   ├── api/
+│   │   ├── main.py                 # FastAPI with middleware
+│   │   ├── routes/
+│   │   │   ├── predict.py          # Prediction endpoints
+│   │   │   ├── health.py           # Health checks
+│   │   │   └── admin.py            # Admin endpoints
+│   │   ├── middleware/
+│   │   │   ├── auth.py             # Authentication
+│   │   │   ├── rate_limit.py       # Rate limiting
+│   │   │   └── logging.py          # Request logging
+│   │   └── schemas/
+│   │       ├── request.py          # Request models
+│   │       └── response.py         # Response models
+│   ├── models/
+│   │   ├── ensemble.py             # Model ensemble
+│   │   ├── feature_engineering.py # Feature processing
+│   │   ├── model_loader.py         # Model management
+│   │   └── prediction.py           # Prediction logic
+│   ├── features/
+│   │   ├── feature_store.py        # Redis feature store
+│   │   ├── real_time_features.py   # Real-time computation
+│   │   └── batch_features.py       # Batch features
+│   ├── monitoring/
+│   │   ├── metrics.py              # Custom metrics
+│   │   ├── drift_detection.py      # Data drift monitoring
+│   │   └── performance.py          # Performance tracking
+│   └── utils/
+│       ├── config.py               # Configuration
+│       ├── logging.py              # Logging setup
+│       └── cache.py                # Caching utilities
+├── training/
+│   ├── pipeline/
+│   │   ├── data_ingestion.py       # Data collection
+│   │   ├── feature_engineering.py  # Feature creation
+│   │   ├── model_training.py       # Model training
+│   │   └── model_validation.py     # Model validation
+│   ├── experiments/
+│   │   └── experiment_tracking.py  # MLflow integration
+│   └── deployment/
+│       └── model_deployment.py     # Automated deployment
+├── infrastructure/
+│   ├── docker/
+│   │   ├── Dockerfile.api          # API container
+│   │   ├── Dockerfile.training     # Training container
+│   │   └── docker-compose.yml      # Local development
+│   ├── kubernetes/
+│   │   ├── api-deployment.yaml     # API deployment
+│   │   ├── configmap.yaml          # Configuration
+│   │   └── monitoring.yaml         # Monitoring setup
+│   ├── terraform/
+│   │   ├── main.tf                 # Infrastructure as code
+│   │   ├── variables.tf            # Variables
+│   │   └── outputs.tf              # Outputs
+│   └── airflow/
+│       └── dags/
+│           ├── data_pipeline.py    # Data processing
+│           └── training_pipeline.py # Model training
+├── tests/
+│   ├── unit/                       # Unit tests
+│   ├── integration/                # Integration tests
+│   └── load/                       # Load tests
+├── monitoring/
+│   ├── grafana/                    # Dashboards
+│   ├── prometheus/                 # Metrics collection
+│   └── alerts/                     # Alert rules
+└── docs/
+    ├── api/                        # API documentation
+    ├── deployment/                 # Deployment guides
+    └── monitoring/                 # Monitoring guides

@@ -1,0 +1,98 @@
+# monitoring/grafana/fraud-detection-dashboard.json
+{
+  "dashboard": {
+    "id": null,
+    "title": "Fraud Detection Production Dashboard",
+    "tags": ["fraud-detection", "mlops"],
+    "timezone": "UTC",
+    "panels": [
+      {
+        "title": "Request Rate",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "sum(rate(fraud_api_requests_total[5m])) by (endpoint)",
+            "legendFormat": "{{endpoint}}"
+          }
+        ],
+        "yAxes": [
+          {
+            "label": "Requests/sec"
+          }
+        ]
+      },
+      {
+        "title": "Response Time P95",
+        "type": "graph", 
+        "targets": [
+          {
+            "expr": "histogram_quantile(0.95, fraud_api_request_duration_seconds_bucket)",
+            "legendFormat": "P95 Latency"
+          }
+        ],
+        "yAxes": [
+          {
+            "label": "Seconds"
+          }
+        ]
+      },
+      {
+        "title": "Model Prediction Latency",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "histogram_quantile(0.95, fraud_model_latency_seconds_bucket)",
+            "legendFormat": "Model P95 Latency"
+          }
+        ]
+      },
+      {
+        "title": "Fraud Detection Rate",
+        "type": "singlestat",
+        "targets": [
+          {
+            "expr": "fraud_detection_rate",
+            "legendFormat": "Detection Rate"
+          }
+        ],
+        "valueName": "current",
+        "format": "percent",
+        "thresholds": "0.02,0.05"
+      },
+      {
+        "title": "Fraud Amount Prevented (24h)",
+        "type": "singlestat", 
+        "targets": [
+          {
+            "expr": "increase(fraud_amount_prevented_total[24h])",
+            "legendFormat": "Amount Prevented"
+          }
+        ],
+        "valueName": "current",
+        "format": "currency"
+      },
+      {
+        "title": "Feature Store Cache Hit Rate",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "rate(feature_cache_hits_total[5m]) / (rate(feature_cache_hits_total[5m]) + rate(feature_cache_misses_total[5m]))",
+            "legendFormat": "Cache Hit Rate"
+          }
+        ],
+        "yAxes": [
+          {
+            "label": "Percentage",
+            "max": 1,
+            "min": 0
+          }
+        ]
+      }
+    ],
+    "time": {
+      "from": "now-6h",
+      "to": "now"
+    },
+    "refresh": "30s"
+  }
+}

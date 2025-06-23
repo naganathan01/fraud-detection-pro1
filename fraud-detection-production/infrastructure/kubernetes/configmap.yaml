@@ -1,0 +1,14 @@
+
+# infrastructure/kubernetes/configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: fraud-detection-config
+  namespace: fraud-detection
+data:
+  ENVIRONMENT: "production"
+  LOG_LEVEL: "INFO"
+  REDIS_HOST: "redis-service"
+  REDIS_PORT: "6379"
+  MODEL_REGISTRY_URI: "s3://fraud-detection-models/"
+  PROMETHEUS_ENABLED: "true"

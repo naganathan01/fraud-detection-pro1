@@ -1,5 +1,7 @@
 # src/api/routes/predict.py
-from fastapi import APIRouter, HTTPException, Request, BackgroundTasks
+
+# Add this import at the top
+from fastapi import APIRouter, HTTPException, Request, BackgroundTasks, Depends  
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 import time
 import asyncio
@@ -10,6 +12,7 @@ from src.api.schemas.response import PredictionResponse, BatchPredictionResponse
 from src.models.prediction import FraudPredictionService
 from src.monitoring.metrics import request_count, request_duration
 from src.utils.cache import cache_prediction, get_cached_prediction
+
 
 router = APIRouter()
 security = HTTPBearer()

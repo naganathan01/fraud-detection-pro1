@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Subscribe to Timesheet Pro</title>
+</head>
+<body>
+  <h1>Timesheet Pro - $10/month</h1>
+  <button id="subscribe">Subscribe Now</button>
+
+  <script>
+    document.getElementById("subscribe").addEventListener("click", () => {
+      fetch("/create-checkout-session", { method: "POST" })
+        .then(res => res.json())
+        .then(data => window.location = data.url);
+    });
+  </script>
+</body>
+</html>
